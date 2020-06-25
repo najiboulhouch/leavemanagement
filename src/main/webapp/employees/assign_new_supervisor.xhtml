@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" 
+xmlns:fn="http://java.sun.com/jsp/jstl/functions" template="../template/template.xhtml">
+	<ui:define name="head">Assign Supervisor</ui:define>
+	<ui:define name="body">
+		<h:form id="assignSupervisorForm">
+			<p:messages id="msgs" autoUpdate="true" style="margin-left:1em; margin-right:1em;" />
+			<p:panel id="assignSupervisorPanel" header="Assign Supervisor" style="margin-bottom:20px" rendered="#{fn:length(employeeController.employeesWithNotSupervisor) > 0 }">
+				<p:panelGrid style="width:100%;" id="assignSupervisorPanelGrid">
+					<p:row>
+						<p:column>
+							<p:outputLabel id="assignSuperLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="assignSuperText" value="Select user to assign supervisor" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu id="assignSuperText" style="width:325px;" required="true" value="#{employeeController.assignedSupervisor}" converter="#{employeeConverter}">
+								<f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+								<f:selectItems value="#{employeeController.employeesWithNotSupervisor}" var="employee" itemLabel="#{employee.firstName} #{employee.lastName}" itemValue="#{employee}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel id="choooseSupervisorLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="choooseSupervisorText" value="Choose Supervisor" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu id="choooseSupervisorText" style="width:325px;" required="true" value="#{employeeController.supervisor}" converter="#{employeeConverter}">
+								<f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+								<f:selectItems value="#{employeeController.employeesWithSupervisorRole}" var="employee" itemLabel="#{employee.firstName} #{employee.lastName}" itemValue="#{employee}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2" style="text-align:center;">
+							<p:commandButton value="Add Supervisor" action="#{employeeController.save}" ajax="false" id="publishLeaveButton" icon="fa fa-fw fa-plus" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+			<p:panel id="NoStaffAvailablePanel" style="margin-bottom:20px" header="No staff available for assignment" rendered="#{fn:length(employeeController.employeesWithNotSupervisor) == 0 }">
+				<p:panelGrid id="NoStaffAvailablePanelGrid" style="width:100%;">
+					<p class="card-text">There is no currently a member of staff who is not assigned to a supervisor. Keep up the good work!</p>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

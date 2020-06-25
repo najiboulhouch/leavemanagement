@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" 
+xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view locale="#{loginController.localeLanguage}" >
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>#{messages['LOGIN.PAGE.HEADER']}</title>
+		<h:outputStylesheet name="css/bootstrap.min.css" />
+		<h:outputStylesheet name="css/style.css" />
+	</h:head>
+	<f:view beforePhase="#{loginController.beforePhase}" />
+	<h:body>
+		<div class="container">
+			<h:form id="loginForm" styleClass="col-md-7" style="margin:155px auto;" prependId="false">
+				<p:panel header="#{messages['LOGIN.PAGE.HEADER']}" id="autentificationPanel">
+					<p:messages id="msgs" />
+					<p:panelGrid styleClass="col-sm-12" id="autentificationPanelGrid" style="margin-bottom:15px;">
+						<p:row>
+							<p:column>
+								<p:outputLabel value="#{messages['LOGIN.PAGE.USERNAME']}" for="j_username" id="usernameLabel" style="font-weight:bold;" />
+							</p:column>
+							<p:column>
+								<p:inputText value="#{loginController.username}" id="j_username" styleClass="col-md-8" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:outputLabel value="#{messages['LOGIN.PAGE.PASSWORD']}" for="j_password" style="font-weight:bold;" id="passwordLabel" />
+							</p:column>
+							<p:column>
+								<p:password value="#{loginController.password}" id="j_password" styleClass="col-md-8" required="true" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column style="text-align:center;">
+								<p:commandButton value="#{messages['LOGIN.PAGE.BUTTON.LOGIN']}" ajax="false" style="font-weight:bold;" action="#{loginController.login}" update="msgs" icon="fa fa-fw fa-user" id="loginButton" />
+							</p:column>
+							<p:column style="text-align:center;">
+								<p:commandButton value="#{messages['LOGIN.PAGE.BUTTON.REGISTER']}" ajax="false" immediate="true" action="registration.xhtml?faces-redirect=true" style="font-weight:bold;" icon="fa fa-fw fa-sign-in" id="registerButton" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</p:panel>
+			</h:form>
+		</div>
+	</h:body>
+</f:view>
+</html>

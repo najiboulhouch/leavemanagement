@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:fn="http://java.sun.com/jsp/jstl/functions" >
+	<div class="col-lg-3" style="margin-top: 90px; margin-bottom: 20px;">
+		<div class="list-group">
+			<h:form id="menuSideBarForm">
+				<p:panelMenu id="menuSideBarPanelMenu">
+					<p:submenu label="User Connected : #{userController.userDetailsImpl.user.userName}" id="sideBarSubMenu" expanded="false">
+						<p:menuitem id="myAccountMenuItem" value="My Account" icon="fa fa-fw fa-user" url="/users/show.xhtml" />
+						<p:menuitem id="pendingLeavesMenuItem" value="Pending Leaves" icon="fa fa-fw fa-refresh" url="/leaves/pending.xhtml" />
+						<p:menuitem id="newLeaveTypeMenuItem" value="New Leave Type" icon="fa fa-fw fa-plus" url="/leaves/new_leave_type.xhtml" />
+						<p:menuitem id="assignNewSupMenuItem" value="Assign New Supervisor" icon="fa fa-fw fa-check" url="/employees/assign_new_supervisor.xhtml" />
+						<p:menuitem id="approveRegiStaffMenuItem" value="Approve Registred Staff (#{fn:length(registrationController.users)})" 
+						icon="fa fa-fw fa-server" url="/employees/approve_registred_staff.xhtml" />
+						<p:menuitem id="newJobDescriptionMenuItem" value="New Job Description" icon="fa fa-fw fa-inbox" url="/jobs/create_description_job.xhtml" />
+						<p:menuitem id="newSupervisorMenuItem" value="New Supervisor" icon="fa fa-fw fa-calendar-o" url="/employees/create_supervisor.xhtml" />
+						<p:menuitem id="leaveNotifMenuItem" value="Leave notifcations" icon="fa fa-fw fa-bell" url="/leaves/leaves_notifications.xhtml" />
+						<p:menuitem id="jobDescMenuItem" value="job Description" icon="fa fa-fw fa-edit" url="/jobs/job_description.xhtml" />
+						<p:submenu id="leaveActionsMenuItem" label="Leave Actions" icon="fa fa-fw fa-plus" expanded="true">
+							<p:menuitem id="newLeaveRequestMenuItem" value="New leave request" icon="fa fa-fw fa-plus-square" url="/leaves/create.xhtml"  />
+							<p:menuitem id="leaveArchivesMenuItem" value="Leave Archives" icon="fa fa-fw fa-archive" url="/leaves/archives.xhtml" />
+							<p:menuitem id="generateReportMenuItem" value="Generate Report" icon="fa fa-fw fa-print" url="/leaves/generate_report.xhtml" />
+						</p:submenu>
+						<p:menuitem id="recommendedLeaveMenuItem" value="Recommended Leave" icon="fa fa-fw fa-recycle" url="/leaves/recommended_leaves.xhtml" />
+					</p:submenu>
+				</p:panelMenu>
+			</h:form>
+		</div>
+	</div>
+</ui:composition>

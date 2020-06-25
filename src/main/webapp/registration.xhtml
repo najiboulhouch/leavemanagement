@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>#{messages['REGISTRATION.PAGE.TITLE']}</title>
+	<h:outputStylesheet name="css/bootstrap.min.css" />
+	<h:outputStylesheet name="css/style.css" />
+</h:head>
+<f:view beforePhase="#{loginController.beforePhase}" />
+<h:body>
+	<div class="container">
+		<h:form id="loginForm" styleClass="col-md-7" style="margin:155px auto;" prependId="false">
+			<p:panel header="#{messages['REGISTRATION.PAGE.HEADER']}" id="autentificationPanel">
+				<p:messages id="msgs" />
+				<p:panelGrid styleClass="col-sm-12" id="autentificationPanelGrid" style="margin-bottom:15px;">
+					<p:row>
+						<p:column>
+							<p:outputLabel value="#{messages['REGISTRATION.PAGE.TITLE']}" for="titleSelect" id="titleLabel" style="font-weight:bold;" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu required="true" id="titleSelect" style="width:225px;" value="#{registrationController.user.title}">
+								<f:selectItem itemLabel="#{messages['REGISTRATION.PAGE.TITLE.SELECT']}" itemValue="" noSelectionOption="true" />
+								<f:selectItems value="#{registrationController.title}" var="title" itemLabel="#{title.label}" itemValue="#{title}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="#{messages['REGISTRATION.PAGE.USERNAME']}" for="usernameText" style="font-weight:bold;" id="usernameLabel" />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{registrationController.user.userName}" id="usernameText" styleClass="col-md-12" required="true" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="#{messages['REGISTRATION.PAGE.FIRSTNAME']}" for="firstnameText" style="font-weight:bold;" id="firstnameLabel" />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{registrationController.user.firstName}" id="firstnameText" styleClass="col-md-12" required="true" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="#{messages['REGISTRATION.PAGE.LASTNAME']}" for="lastnameText" style="font-weight:bold;" id="lastnameLabel" />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{registrationController.user.lastName}" id="lastnameText" styleClass="col-md-12" required="true" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="#{messages['REGISTRATION.PAGE.PHONE']}" for="phoneNumberText" style="font-weight:bold;" id="phoneNumberLabel" />
+						</p:column>
+						<p:column>
+							<p:inputMask value="#{registrationController.user.phone}" mask="(999) 99-99-99-99-99" id="phoneNumberText" styleClass="col-md-12" required="true" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="#{messages['REGISTRATION.PAGE.EMAIL']}" for="emailText" style="font-weight:bold;" id="emailLabel" />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{registrationController.user.email}" id="emailText" styleClass="col-md-12" required="true" validatorMessage="#{messages['REGISTRATION.PAGE.EMAIL.VALIDATOR']}" >
+								<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="#{messages['REGISTRATION.PAGE.PASSWORD']}" for="passwordText" style="font-weight:bold;" id="passwordLabel" />
+						</p:column>
+						<p:column>
+							<p:password value="#{registrationController.user.password}" id="passwordText" styleClass="col-md-12" required="true" />
+						</p:column>
+					</p:row>
+<!-- 					<p:row>
+						<p:column>
+							<p:outputLabel value="Captcha" for="captcha" style="font-weight:bold;" id="captchaLabel" />
+						</p:column>
+						<p:column>
+							<p:captcha label="Captcha" id="captcha"  />
+						</p:column>
+					</p:row> -->
+					<p:row>
+						<p:column style="text-align:center;">
+							<p:commandButton value="#{messages['REGISTRATION.PAGE.BUTTON.LOGIN']}" ajax="false" immediate="true" style="font-weight:bold;" action="login.xhtml?faces-redirect=true" 
+							icon="fa fa-fw fa-user" id="loginButton" />
+						</p:column>
+						<p:column style="text-align:center;">
+							<p:commandButton value="#{messages['REGISTRATION.PAGE.BUTTON.REGISTER']}" action="#{registrationController.register}" ajax="false" style="font-weight:bold;" update="msgs" icon="fa fa-fw fa-sign-in" id="registerButton" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</div>
+</h:body>
+</html>

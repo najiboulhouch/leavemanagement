@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" template="../template/template.xhtml">
+	<ui:define name="head">New Leave Type</ui:define>
+	<ui:define name="body">
+		<h:form id="newLeaveTypeForm">
+		<p:messages id="msgs" autoUpdate="true" style="margin-left:1em; margin-right:1em;" />
+			<p:panel id="newLeaveTypePanel" header="New Leave Type" style="margin-bottom:20px">
+				<p:panelGrid style="width:100%;" id="newLeaveTypePanelGrid">
+					<p:row>
+						<p:column>
+							<p:outputLabel id="leaveTypeLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="leaveTypeText" value="Leave type" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu required="true" id="leaveTypeText" style="width:325px;" value="#{leaveController.entity.leaveType}">
+								<f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+								<f:selectItems value="#{leaveController.leavesType}" var="leaveType" itemLabel="#{leaveType.label}" itemValue="#{leaveType}"/>
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel id="allowedDaysLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="allowedDaysText" value="Allowed days" />
+						</p:column>
+						<p:column>
+							<p:inputNumber required="true" id="allowedDaysText" minValue="1" maxValue="50" maxlength="1" styleClass="form-control-plaintext" style="width:325px;"
+							 value="#{leaveController.entity.allowsdays}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel id="allowedMonthlyDaysLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="allowedMonthlyDaysText" value="Allowed Monthly Days" />
+						</p:column>
+						<p:column>
+							<p:inputNumber required="true" id="allowedMonthlyDaysText" minValue="1" maxValue="50" maxlength="1" styleClass="form-control-plaintext"
+							value="#{leaveController.entity.allowedMonthlyDays}" style="width:325px;" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel id="saffLevelLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="staffLevelText" value="Staff Level" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu required="true" id="staffLevelText" style="width:325px;" value="#{leaveController.entity.forStaffLevel}" converter="#{groupeConverter}" >
+								<f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"  />
+								<f:selectItems value="#{groupeController.groupes}" var="groupe" itemLabel="#{groupe.name}" itemValue="#{groupe}"/>
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2" style="text-align:center;">
+							<p:commandButton value="Publish Leave" ajax="false" id="publishLeaveButton" action="#{leaveController.createNewLeave}" icon="fa fa-fw fa-arrow-circle-down" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

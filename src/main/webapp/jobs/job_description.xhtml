@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" 
+xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" template="../template/template.xhtml">
+	<ui:define name="head">Brief Summary of Staff Leave And Job Info</ui:define>
+	<ui:define name="body">
+		<h:form id="leavesNotifForm">
+			<p:panel header="Brief Summary of Staff Leave And Job Info">
+				<p:panelGrid columns="1">
+					<p:dataTable id="jobDescriptionDataTable" value="#{jobDescriptionController.jobDescriptionsForConncetdUser}" var="jobDescription">
+						<p:column headerText="ID">
+							<h:outputText value="#{jobDescription.id}" />
+						</p:column>
+						<p:column headerText="Level">
+							<h:outputText value="#{fn:toLowerCase(jobDescription.employee.user.groupe.name)}" />
+						</p:column>
+						<p:column headerText="Salary Level">
+							<h:outputText value="#{jobDescription.salaryLevel}" />
+						</p:column>
+						<p:column headerText="Date Joined">
+							<h:outputText value="#{jobDescription.dateJoined}" >
+								<f:convertDateTime pattern="dd-MM-yyyy"/>
+							</h:outputText>
+						</p:column>
+					</p:dataTable>
+				</p:panelGrid>
+			</p:panel>
+			
+			<p:panel header="More Leave Statistics">
+				<p:panelGrid columns="1">
+					<p:dataTable value="#{jobDescriptionController.leavesForStatistics}" var="leave" id="leaveStatisticsDataTable"  rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+						<p:column headerText="Leave ID" >
+							<h:outputText value="#{leave.id}" />
+						</p:column>
+						<p:column headerText="Leave Type" >
+							<h:outputText value="#{fn:toLowerCase(leave.leaveType.label)}"/>
+						</p:column>
+						<p:column headerText="Allowed Annual Days" >
+							<h:outputText value="#{leave.allowsdays}" />
+						</p:column>
+						<p:column headerText="Allowed Monthly Days" >
+							<h:outputText value="#{leave.allowedMonthlyDays}" />
+						</p:column>
+						<p:column headerText="No. Days Left" >
+							<h:outputText value="#{leave.currentDays}" />
+						</p:column>
+						<f:facet name="paginatorTopLeft">
+							<p:commandButton type="button" icon="ui-icon-disk" />
+						</f:facet>
+						<f:facet name="paginatorBottomRight">
+							<p:commandButton type="button" icon="ui-icon-disk"/>
+						</f:facet>
+					</p:dataTable>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

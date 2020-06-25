@@ -1,0 +1,52 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" 
+xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd
+    http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+    http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+	<context:property-placeholder location="classpath:database/database.properties" />
+	<jpa:repositories base-package="net.najiboulhouch.leavesmanagers.repositories" />
+	<!-- Configures the database connection. -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="${db.driver}" />
+		<property name="jdbcUrl" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+	</bean>
+	<!-- Creates the datasource bean. -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<constructor-arg index="0" ref="hikariConfig" />
+	</bean>
+	<!-- Configure the transaction manager bean -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	<!-- Enable annotation-driven transaction management -->
+	<tx:annotation-driven />
+	<!-- Configure the entity manager factory bean -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- This makes /META-INF/persistence.xml is no longer necessary -->
+		<property name="packagesToScan" value="net.najiboulhouch.leavesmanagers.entities" />
+		<!-- JpaVendorAdapter implementation for Hibernate EntityManager. Exposes Hibernate's persistence provider and EntityManager extension interface -->
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect"> ${hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.ejb.naming_strategy">${hibernate.ejb.naming_strategy}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

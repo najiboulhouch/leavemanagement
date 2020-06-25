@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" template="../template/template.xhtml">
+	<ui:define name="head">Assign Supervisor Role</ui:define>
+	<ui:define name="body">
+		<h:form id="assignSupervisorRoleForm">
+			<p:panel id="assignSupervisorRolePanel" header="Assign Supervisor Role" style="margin-bottom:20px">
+				<p:panelGrid style="width:100%;" id="assignSupervisorPanelGrid">
+					<p:row>
+						<p:column>
+							<p:outputLabel id="newSupervisorRoleLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="newSupervisorRoleText" value="New supervisor role" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu id="newSupervisorRoleText" style="width:325px;">
+								<f:selectItem itemLabel="Select One" itemValue="" />
+								<f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+								<f:selectItem itemLabel="PS4" itemValue="PS4" />
+								<f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="text-align:center;">
+							<p:commandButton value="Assign Role" ajax="false" id="assignRoleButton" icon="fa fa-fw fa-exchange" />
+						</p:column>
+						<p:column style="text-align:center;">
+							<p:commandButton value="Register Supervisor" ajax="false" id="registerSupervisorButton" icon="fa fa-fw fa-user-md" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

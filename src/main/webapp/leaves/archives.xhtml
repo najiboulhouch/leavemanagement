@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" template="../template/template.xhtml">
+	<ui:define name="head">Requested Leaves</ui:define>
+	<ui:define name="body">
+		<h:form id="leavesArchivesForm">
+			<p:panel header="Requested Leaves">
+				<p:panelGrid columns="1">
+					<p:dataTable value="#{leaveApplicationController.leaveApplications}" var="leave" id="leavesArchivesDataTable" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+						<p:column headerText="Leave ID">
+							<h:outputText value="#{leave.primaryKey.leave.id}" />
+						</p:column>
+						<p:column headerText="Leave Type">
+							<h:outputText value="#{leave.primaryKey.leave.leaveType.label}" />
+						</p:column>
+						<p:column headerText="Status">
+							<h:outputText value="#{leave.status.label}" style="font-weight:bold;color:blue;" rendered="#{leave.status eq 'PENDING'}" />
+							<h:outputText value="#{leave.status.label}" style="font-weight:bold;color:green;" rendered="#{leave.status eq 'ACCEPTED'}" />
+							<h:outputText value="#{leave.status.label}" style="font-weight:bold;color:red;" rendered="#{leave.status eq 'REJECTED'}" />
+						</p:column>
+						<p:column headerText="Date Requested">
+							<h:outputText value="#{leave.dateRequested}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+						<f:facet name="paginatorTopLeft">
+							<p:commandButton type="button" icon="ui-icon-disk" />
+						</f:facet>
+						<f:facet name="paginatorBottomRight">
+							<p:commandButton type="button" icon="ui-icon-disk" />
+						</f:facet>
+					</p:dataTable>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

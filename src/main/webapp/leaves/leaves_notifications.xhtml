@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" template="../template/template.xhtml">
+	<ui:define name="head">Leaves Notifications</ui:define>
+	<ui:define name="body">
+		<h:form id="leavesNotifForm">
+			<p:tabView id="leavesNotificationTabView">
+				<p:tab title="Rejected" id="rejectedTab" titleStyle="font-weight:bold;">
+					<p:panelGrid columns="1">
+						<p:dataTable rows="10" paginator="true" value="#{rejectedLeaveController.rejectedLeaves}" var="rejectedLeave" id="rejectedDataTable" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+							<f:facet name="header">
+								Rejected Leaves
+						    </f:facet>
+							<p:column headerText="Leave ID">
+								<h:outputText value="#{rejectedLeave.id}" />
+							</p:column>
+							<p:column headerText="Leave Type">
+								<h:outputText value="#{rejectedLeave.leave.leaveType.label}" />
+							</p:column>
+							<p:column headerText="Reason">
+								<p:commandButton value="Details" type="button" onclick="PF('dlg2').show();" />
+								<p:dialog header="Reason" widgetVar="dlg2" width="700" height="80">
+									<h:outputText value="#{rejectedLeave.reasonReject}" />
+								</p:dialog>
+							</p:column>
+							<p:column headerText="Date Rejected">
+								<h:outputText value="#{rejectedLeave.dateRejected}">
+									<f:convertDateTime pattern="dd-MM-yyyy" />
+								</h:outputText>
+							</p:column>
+							<f:facet name="paginatorTopLeft">
+								<p:commandButton type="button" icon="ui-icon-disk" />
+							</f:facet>
+							<f:facet name="paginatorBottomRight">
+								<p:commandButton type="button" icon="ui-icon-disk" />
+							</f:facet>
+						</p:dataTable>
+					</p:panelGrid>
+				</p:tab>
+				<p:tab title="Accepted" id="acceptedTab">
+					<p:panelGrid columns="1">
+						<p:dataTable value="#{acceptedLeaveController.acceptedLeaves}" var="acceptedLeave" id="acceptedDataTable" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+							<f:facet name="header">
+								Accepted Leaves
+						    </f:facet>
+							<p:column headerText="Leave ID">
+								<h:outputText value="#{acceptedLeave.id}" />
+							</p:column>
+							<p:column headerText="Leave Type">
+								<h:outputText value="#{acceptedLeave.leave.leaveType.label}" />
+							</p:column>
+							<p:column headerText="Number of Days">
+								<h:outputText value="#{acceptedLeave.numDays}" />
+							</p:column>
+							<p:column headerText="Date Rejected">
+								<h:outputText value="#{acceptedLeave.dateAccepted}">
+									<f:convertDateTime pattern="dd-MM-yyyy" />
+								</h:outputText>
+							</p:column>
+							<f:facet name="paginatorTopLeft">
+								<p:commandButton type="button" icon="ui-icon-disk" />
+							</f:facet>
+							<f:facet name="paginatorBottomRight">
+								<p:commandButton type="button" icon="ui-icon-disk" />
+							</f:facet>
+						</p:dataTable>
+					</p:panelGrid>
+				</p:tab>
+				<p:tab title="Pending" id="pendingTab">
+					<p:panelGrid columns="1">
+						<p:dataTable value="#{leaveController.pendingLeaves}"  var="leaveApplication" id="pendingDataTable" rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+							<f:facet name="header">
+								Pending Leaves
+						    </f:facet>
+							<p:column headerText="Leave ID">
+								<h:outputText value="#{leaveApplication.primaryKey.leave.id}" />
+							</p:column>
+							<p:column headerText="Date Requested">
+								<h:outputText value="#{leaveApplication.dateRequested}" >
+									<f:convertDateTime pattern="dd-MM-yyyy"/>
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Leave Type">
+								<h:outputText value="#{leaveApplication.primaryKey.leave.leaveType.label}" />
+							</p:column>
+							<f:facet name="paginatorTopLeft">
+								<p:commandButton type="button" icon="ui-icon-disk" />
+							</f:facet>
+							<f:facet name="paginatorBottomRight">
+								<p:commandButton type="button" icon="ui-icon-disk" />
+							</f:facet>
+						</p:dataTable>
+					</p:panelGrid>
+				</p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>

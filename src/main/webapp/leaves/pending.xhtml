@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" template="../template/template.xhtml">
+	<ui:define name="head">Pending Leaves</ui:define>
+	<ui:define name="body">
+		<h:form id="pendingLeavesForm">
+		<p:messages id="msgs" autoUpdate="true" style="margin-left:1em; margin-right:1em;" />
+			<p:panel header="Pending Leaves">
+				<p:panelGrid columns="1">
+					<p:dataTable id="rejectedDataTable" value="#{recommendedLeavesController.recommendedLeaves}" var="leave">
+						<p:column headerText="Leave Type">
+							<h:outputText value="#{leave.leave.leaveType.label}" />
+						</p:column>
+						<p:column headerText="Staff Name">
+							<h:outputText value="#{leave.employee.firstName}" />
+						</p:column>
+						<p:column headerText="Recommended By">
+							<h:outputText value="#{leave.recommendedBy.firstName}" />
+						</p:column>
+						<p:column headerText="Reason">
+							<p:commandButton value="View" type="button" onclick="PF('dlg2').show();" />
+							<p:dialog header="Reason For Recommending Leave" widgetVar="dlg2" minHeight="40">
+								<h:outputText value="#{leave.whyRecommend}" />
+							</p:dialog>
+						</p:column>
+						<p:column headerText="Total Days">
+							<h:outputText value="#{leave.numDays}" />
+						</p:column>
+						<p:column headerText="On">
+							<h:outputText value="#{leave.dateRecommended}" >
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Action">
+							<p:commandButton value="Accept" ajax="false" update="msgs" action="#{recommendedLeavesController.changeStatusRecommendedLeave(true , leave)}" id="acceptLeaveButton"/>
+							<p:commandButton value="Reject" ajax="false" update="msgs" action="#{recommendedLeavesController.changeStatusRecommendedLeave(false , leave)}" id="rejectLeaveButton" />
+						</p:column>
+					</p:dataTable>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

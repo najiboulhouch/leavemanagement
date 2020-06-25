@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" template="template/template.xhtml">
+		<ui:define name="head">#{messages['INDEX.PAGE.HEADER.TITLE']}</ui:define>
+		<ui:define name="body">
+			<div class="card" style="margin-top: 0;">
+				<div class="card-body">
+					<h3 class="card-title">
+						#{messages['INDEX.PAGE.MESSAGE.WELCOME']},
+						<p:outputLabel value="#{userController.userDetailsImpl.user.employee.firstName} #{userController.userDetailsImpl.user.employee.lastName}" />
+					</h3>
+					<p class="card-text">#{messages['INDEX.PAGE.MESSAGE.P1']}</p>
+					<p class="card-text">#{messages['INDEX.PAGE.MESSAGE.P2']}</p>
+					<p class="card-text">#{messages['INDEX.PAGE.MESSAGE.P3']}</p>
+				</div>
+			</div>
+		</ui:define>
+</ui:composition>

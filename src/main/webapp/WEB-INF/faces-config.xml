@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+	<application>
+		<!-- Spring’s bean in Spring Ioc context, and JSF’s managed bean in JSF Ioc context, how to make both 
+			working together? The solution is defined Spring’s SpringBeanFacesELResolver -->
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+		<locale-config>
+			<default-locale>fr</default-locale>
+			<supported-locale>fr</supported-locale>
+			<supported-locale>en</supported-locale>
+		</locale-config>
+		<resource-bundle>
+			<base-name>i18n.messages</base-name>
+			<var>messages</var>
+		</resource-bundle>
+	</application>
+
+	<lifecycle>
+		<phase-listener>net.najiboulhouch.leavesmanagers.controllers.LoginController</phase-listener>
+	</lifecycle>
+
+</faces-config>

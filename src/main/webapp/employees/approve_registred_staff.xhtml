@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" template="../template/template.xhtml">
+	<ui:define name="head">Approve Registred Staff</ui:define>
+	<ui:define name="body">
+		<h:form id="approveResigtredStaffForm">
+			<p:messages id="msgs" autoUpdate="true" style="margin-left:1em; margin-right:1em;" />
+			<p:panel id="approveResigtredStaffPanel" header="Pending Leaves" style="margin-bottom:20px">
+				<p:panelGrid id="approveResigtredStaffPanelGrid" columns="1">
+					<p:dataTable id="rejectedDataTable" value="#{registrationController.users}" var="user">
+						<p:column headerText="Username">
+							<h:outputText value="#{user.userName}" />
+						</p:column>
+						<p:column headerText="Full Name">
+							<h:outputText value="#{user.firstName} #{user.lastName}" />
+						</p:column>
+						<p:column headerText="Date Registered">
+							<h:outputText value="#{user.dateRegistred}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Action" style="text-align:center;">
+							<p:commandButton value="Approve" ajax="false" update="msgs" action="#{registrationController.approveRegistration(user)}" id="approveReistrationButton" />
+						</p:column>
+					</p:dataTable>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

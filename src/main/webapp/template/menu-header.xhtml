@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+	<h:form id="menuHeaderForm">
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active"><p:link id="dashboardLink" styleClass="nav-link" icon="ui-icon-person" value="#{messages['TEMPLATE.HEADER.PAGE.LINK.DASHBOARD']}" href="/index.xhtml" /></li>
+				<li class="nav-item"><p:link id="pendingLeavesLink" styleClass="nav-link" icon="ui-icon-person" value="#{messages['TEMPLATE.HEADER.PAGE.LINK.PENDINGLEAVES']}" href="/leaves/pending.xhtml" /></li>
+				<li class="nav-item"><p:link id="newLeaveTypeLink" styleClass="nav-link" icon="ui-icon-person" value="#{messages['TEMPLATE.HEADER.PAGE.LINK.NEWLEAVE']}" href="/leaves/new_leave_type.xhtml" /></li>
+				<li class="nav-item"><p:link id="AssignSupervisorLink" styleClass="nav-link" icon="ui-icon-person" value="#{messages['TEMPLATE.HEADER.PAGE.LINK.ASSIGNSUP']}" href="/employees/assign_new_supervisor.xhtml" /></li>
+				<li class="nav-item"><p:link id="leavesLink" styleClass="nav-link" icon="ui-icon-person" value="#{messages['TEMPLATE.HEADER.PAGE.LINK.LEAVES']}" href="/leaves/leaves_notifications.xhtml" /></li>
+				<li class="nav-item"><p:link id="myAccountLink" styleClass="nav-link" icon="ui-icon-person" value="#{messages['TEMPLATE.HEADER.PAGE.LINK.ACCOUNT']}" href="/users/show.xhtml" /></li>
+				<li class="nav-item"><p:link id="logoutLink" styleClass="nav-link" icon="ui-icon-person" value="#{messages['TEMPLATE.HEADER.PAGE.LINK.LOGOUT']}" href="/logout" /></li>
+			</ul>
+		</div>
+	</h:form>
+</ui:composition>

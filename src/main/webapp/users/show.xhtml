@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" template="../template/template.xhtml">
+	<ui:define name="head">User Account</ui:define>
+	<ui:define name="body">
+		<f:view locale="#{userController.locale}">
+			<h:form id="showAccountForm">
+				<p:messages id="msgs" autoUpdate="true" style="margin-left:1em; margin-right:1em;" />
+				<p:panel id="showAccountPanel" header="Staff Details" style="margin-bottom:20px">
+					<p:panelGrid style="width:100%;" id="showAccountPanelGrid">
+						<p:row>
+							<p:column>
+								<p:outputLabel id="languageLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="languageText" value="Language " />
+							</p:column>
+							<p:column>
+								<p:selectOneMenu  value="#{userController.language}" style="width:100%;" onchange="submit()" id="languageText">
+									<f:selectItem itemValue="en" itemLabel="English"  />
+									<f:selectItem itemValue="fr" itemLabel="French" />
+								</p:selectOneMenu>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:outputLabel id="firstNameLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="firstNaneText" value="#{messages['LOGIN.PAGE.FIRSTNAME']}" />
+							</p:column>
+							<p:column>
+								<p:inputText styleClass="form-control-plaintext" value="#{userController.userDetailsImpl.user.firstName}" id="firstNaneText" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:outputLabel id="lastNameLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="lastNaneText" value="Last Name" />
+							</p:column>
+							<p:column>
+								<p:inputText styleClass="form-control-plaintext" value="#{userController.userDetailsImpl.user.lastName}" id="lastNaneText" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:outputLabel id="usernameLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="usernameText" value="Username" />
+							</p:column>
+							<p:column>
+								<p:inputText styleClass="form-control-plaintext" id="usernameText" value="#{userController.userDetailsImpl.user.userName}" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:outputLabel id="dateRegistredLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="dateRegistredText" value="Date Registred" />
+							</p:column>
+							<p:column>
+								<p:calendar disabled="true" id="dateRegistredText" styleClass="form-control-plaintext" mode="popup" pattern="yyyy-MM-dd" value="#{userController.userDetailsImpl.user.dateRegistred}" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:outputLabel id="phoneLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="phoneNumberText" value="Phone Number" />
+							</p:column>
+							<p:column>
+								<p:inputMask styleClass="form-control-plaintext" id="phoneNumberText" mask="(999) 99-99-99-99-99" value="#{userController.userDetailsImpl.user.phone}" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:outputLabel id="currentPasswordLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="currentPasswordText" value="Current Password" />
+							</p:column>
+							<p:column>
+								<p:password styleClass="form-control-plaintext" id="currentPasswordText" maxlength="15" required="true" value="#{userController.currentPassword}" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:outputLabel id="newPasswordLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="newPasswordText" value="New Password" />
+							</p:column>
+							<p:column>
+								<p:password styleClass="form-control-plaintext" id="newPasswordText" match="confirmPasswordText" validatorMessage="Please write same password" value="#{userController.userDetailsImpl.user.password}" maxlength="15" required="true" feedback="true" inline="true" disabled="#{userController.enableOrDisablePassword}" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<p:outputLabel id="confirmPasswordLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="confirmPasswordText" value="Confirm Password" />
+							</p:column>
+							<p:column>
+								<p:password styleClass="form-control-plaintext" id="confirmPasswordText" maxlength="15" required="true" feedback="true" inline="true" disabled="#{userController.enableOrDisablePassword}" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column style="text-align:center;">
+								<p:commandButton value="Update Details" action="#{userController.updateUser}" ajax="false" update="msgs" id="updateDetailsButton" icon="fa fa-fw fa-arrow-circle-down" />
+							</p:column>
+							<p:column style="text-align:center;">
+								<p:commandButton value="Change password" action="#{userController.changePassword}" ajax="false" update="msgs, newPasswordText" id="changePasswordButton" icon="fa fa-fw fa-key" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</p:panel>
+			</h:form>
+			<h:form id="deleteAccountForm">
+				<p:panel header="Delete Account" id="deleteAccountPanel">
+					<p:panelGrid id="deleteAccountPanelGrid">
+						<p:row>
+							<p:column colspan="2">
+								<p style="background-color: #fff3cd; font-size: 15px; border: #fff3cd 1px solid; padding: 8px;">
+									<span style="color: red; font-weight: bold;">Note:</span> Deleting your account will remove all your staff information including your profile data, leave data, job description etc. A better option is to allow your admin deactivate your account so that your details will be saved for later access. Both require admin approval.
+								</p>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column colspan="2">
+								<p:selectBooleanCheckbox id="deleteAccountcheckBox" itemLabel="I know that. I really want to delete my account">
+									<p:ajax update="deleteAccountPanelGrid" event="change" listener="#{userController.checkDeleteButton()}" />
+								</p:selectBooleanCheckbox>
+							</p:column>
+						</p:row>
+						<p:row rendered="#{userController.enableDeleteAccountButton}">
+							<p:column>
+								<p:outputLabel style="font-weight:bold;" styleClass="col-sm-12 col-form-label" id="passwordDeleteLabel" for="passwordDeleteText" value="Enter your password to continue" />
+							</p:column>
+							<p:column>
+								<p:password id="passwordDeleteText" required="true" value="#{userController.currentPassword}" />
+							</p:column>
+						</p:row>
+						<p:row rendered="#{userController.enableDeleteAccountButton}">
+							<p:column colspan="2" style="text-align:center;">
+								<p:commandButton value="Delete Account" ajax="false" update="msgs" process="@this" action="#{userController.deleteAccount}" id="deleteAccountsButton" icon="fa fa-fw fa-arrow-circle-down" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+					<p:ajaxStatus id="startAjax" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+					<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+						<p:graphicImage name="/img/ajax-loading.gif" />
+					</p:dialog>
+				</p:panel>
+			</h:form>
+		</f:view>
+	</ui:define>
+</ui:composition>

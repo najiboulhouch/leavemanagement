@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" template="../template/template.xhtml">
+	<ui:define name="head">Job Description</ui:define>
+	<ui:define name="body">
+		<h:form id="jobDescriptionForm">
+			<p:messages id="msgs" autoUpdate="true" style="margin-left:1em; margin-right:1em;" />
+			<p:panel id="jobDescriptionPanel" header="New Job Description" style="margin-bottom:20px">
+				<p:panelGrid style="width:100%;" id="jobDescriptionPanelGrid">
+					<p:row>
+						<p:column>
+							<p:outputLabel id="selectStaffLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="selectStaffText" value="Select Staff" />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu id="selectStaffText" style="width:325px;" value="#{jobDescriptionController.entity.employee}" required="true" converter="#{employeeConverter}">
+								<f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+								<f:selectItems value="#{jobDescriptionController.employees}" var="employee" itemLabel="#{employee.firstName} #{employee.lastName}" itemValue="#{employee}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel id="salaryLevelLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="salaryLevelText" value="Salary Level" />
+						</p:column>
+						<p:column>
+							<p:inputNumber id="salaryLevelText" maxValue="999999" minValue="0" required="true" value="#{jobDescriptionController.entity.salaryLevel}" styleClass="form-control-plaintext" style="width:325px;" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel id="dateJoinedLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="dateJoinedText" value="Date Joined" />
+						</p:column>
+						<p:column>
+							<p:calendar id="dateJoinedText" mode="popup" required="true" pattern="dd-MM-yyyy" style="width:325px;" value="#{jobDescriptionController.entity.dateJoined}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2" style="text-align:center;">
+							<p:commandButton value="Publish Description" ajax="false" id="publishDescriptionButton" icon="fa fa-fw fa-arrow-circle-down" action="#{jobDescriptionController.save}" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

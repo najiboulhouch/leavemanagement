@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+<f:view locale="#{userController.language}">
+	<h:head>
+		<title><ui:insert name="head" /></title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+		<h:outputStylesheet name="css/bootstrap.min.css" />
+		<h:outputStylesheet name="css/style.css" />
+	</h:head>
+	<h:body>
+		<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<div class="container">
+				<a class="navbar-brand" href="#">#{messages['TEMPLATE.HEADER.PAGE.LINK.TITLE']}</a>
+				<ui:include src="menu-header.xhtml" />
+			</div>
+		</nav>
+		<!-- Page Content -->
+		<div class="container">
+			<div class="row">
+				<ui:include src="menu-side-bar.xhtml" />
+				<div class="col-lg-9" style="margin-top: 90px; margin-bottom: 90px;">
+					<ui:insert name="body" />
+				</div>
+			</div>
+		</div>
+		<!-- Footer -->
+		<footer class="py-5 bg-dark">
+			<div class="container">
+				<p class="m-0 text-center text-white">
+					#{messages['TEMPLATE.HEADER.PAGE.LINK.TITLE']} ©
+					<script>
+						var CurrentYear = new Date().getFullYear()
+						document.write(CurrentYear)
+					</script>
+					. All rights reserved
+				</p>
+			</div>
+		</footer>
+		<!-- Bootstrap core JavaScript -->
+		<h:outputScript name="js/bootstrap.min.js" />
+	</h:body>
+</f:view>
+</html>

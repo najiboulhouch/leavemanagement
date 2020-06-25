@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" template="../template/template.xhtml">
+	<ui:define name="head">Leaves Notifications</ui:define>
+	<ui:define name="body">
+		<p:messages id="msgs" autoUpdate="true" style="margin-left:1em; margin-right:1em;" />
+		<p:panel header="Pending Leaves" id="recommendedLeavesPanel">
+			<h:form id="recommendedLeavesForm">
+				<p:panelGrid columns="1">
+					<p:dataTable id="recommendedLeavesDataTable" value="#{leaveController.pendingLeaves}" var="leave">
+						<p:column headerText="Leave ID" width="60">
+							<h:outputText value="#{leave.primaryKey.leave.id}" />
+						</p:column>
+						<p:column headerText="Leave Type">
+							<h:outputText value="#{leave.primaryKey.leave.leaveType.label}" />
+						</p:column>
+						<p:column headerText="Staff ID" width="60">
+							<h:outputText value="#{leave.primaryKey.employee.id}" />
+						</p:column>
+						<p:column headerText="Starts" width="100">
+							<h:outputText value="#{leave.dateStartLeave}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Ends" width="100">
+							<h:outputText value="#{leave.dateEndLeave}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Requested on" width="110">
+							<h:outputText value="#{leave.dateRequested}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Action">
+							<p:commandButton value="Recommend" id="recommendedButton" 
+							actionListener="#{recommendedLeaveController.save(leave)}" style="margin-bottom:5px;" icon="fa fa-fw fa-plus" update="@form:reasonOfRecommendingPanel" />
+							
+							<p:commandButton value="Reject" id="rejectButton" icon="fa fa-fw fa-remove" action="#{recommendedLeaveController.save}" style="width:125px;" />
+							<p:dialog header="Reason For Recommending Leave" widgetVar="dlg2" minHeight="40" modal="true">
+							</p:dialog>
+						</p:column>
+					</p:dataTable>
+				</p:panelGrid>
+				<p:dialog header="Any reason for recommending leave?" widgetVar="dlg1" modal="true" resizable="false" position="center" width="600" height="200" closable="false">
+					<p:panel id="reasonOfRecommendingPanel">
+						<p:panelGrid columns="1" style="width:100%;">
+							<p:row>
+								<p:column>
+									<p:outputLabel id="reasonRecommendLabel" style="font-weight:bold;" for="reasonRecommendText" value="Provide reason here" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:inputTextarea styleClass="form-control-plaintext" value="#{recommendedLeaveController.entity.whyRecommend}" id="reasonRecommendText" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:commandButton value="Continue" id="saveRecommendedLeaveButton" icon="fa fa-fw fa-arrow-circle-down" 
+									actionListener="#{recommendedLeaveController.update}" process="@form:reasonOfRecommendingPanel" 
+									update="recommendedLeavesForm:recommendedLeavesDataTable" oncomplete="PF('dlg1').hide();" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</p:panel>
+				</p:dialog>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>
