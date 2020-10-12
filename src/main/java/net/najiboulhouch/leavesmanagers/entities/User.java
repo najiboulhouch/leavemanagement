@@ -61,6 +61,10 @@ public class User {
 	@JoinColumn(name="GROUPE_ID")
 	private Groupe groupe;
 	
+	@Column(name="LANGAGE")
+	private String lng;
+	
+	
 	public User() {
 		super();
 	}
@@ -134,6 +138,14 @@ public class User {
 		this.email = email;
 	}
 
+	public String getLng() {
+		return lng;
+	}
+
+	public void setLng(String lng) {
+		this.lng = lng;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof User) {
@@ -147,7 +159,9 @@ public class User {
 				   Objects.equals(getPhone(), user.getPhone()) &&
 				   Objects.equals(getEmployee(), user.getEmployee()) &&
 				   Objects.equals(getGroupe(), user.getGroupe()) &&
-				   Objects.equals(isEnabled(), user.isEnabled());
+				   Objects.equals(isEnabled(), user.isEnabled()) &&
+				   Objects.equals(getLng(), user.getLng());
+			
 		}
 		return false;
 	}
@@ -155,7 +169,7 @@ public class User {
 	@Override
 	public int hashCode() {
 		return Objects.hash(getFirstName() , getLastName() , getDateRegistred() , getUserName() ,
-				getPassword() , getTitle() , getPhone() , getEmployee() , getGroupe() , isEnabled());
+				getPassword() , getTitle() , getPhone() , getEmployee() , getGroupe() , isEnabled() , getLng());
 	}
 	
 }

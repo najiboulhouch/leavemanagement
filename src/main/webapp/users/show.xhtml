@@ -28,7 +28,7 @@
 						</p:row>
 						<p:row>
 							<p:column>
-								<p:outputLabel id="lastNameLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="lastNaneText" value="Last Name" />
+								<p:outputLabel id="lastNameLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="lastNaneText" value="#{messages['LOGIN.PAGE.LASTNAME']}" />
 							</p:column>
 							<p:column>
 								<p:inputText styleClass="form-control-plaintext" value="#{userController.userDetailsImpl.user.lastName}" id="lastNaneText" />
@@ -36,7 +36,7 @@
 						</p:row>
 						<p:row>
 							<p:column>
-								<p:outputLabel id="usernameLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="usernameText" value="Username" />
+								<p:outputLabel id="usernameLabel" style="font-weight:bold;" styleClass="col-sm-12 col-form-label" for="usernameText" value="#{messages['LOGIN.PAGE.USERNAME']}" />
 							</p:column>
 							<p:column>
 								<p:inputText styleClass="form-control-plaintext" id="usernameText" value="#{userController.userDetailsImpl.user.userName}" />

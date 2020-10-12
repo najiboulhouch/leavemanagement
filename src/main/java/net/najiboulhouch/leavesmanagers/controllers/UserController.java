@@ -49,6 +49,7 @@ public class UserController {
 	public void setLanguage(String language) {
 		locale = new Locale(language);
 		FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
+		userDetailsImpl.getUser().setLng(locale.getLanguage());
 	}
 
 	public String getCurrentPassword() {
@@ -85,8 +86,8 @@ public class UserController {
 
 	@PostConstruct
 	public void init() {
-		locale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
 		userDetailsImpl = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		locale = new Locale(userDetailsImpl.getUser().getLng());
 		enableDeleteAccountButton = false;
 		enableOrDisablePassword = true;
 	}
